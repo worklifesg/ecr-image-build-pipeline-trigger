@@ -7,6 +7,14 @@ on:
         required: false
         type: string
         default: 'us-east-1'
+      ecr-namespace:
+        required: true
+        type: string
+        description: "The ECR namespace (e.g. worklifesg)"
+      sig-repo:
+        required: true
+        type: string
+        description: "The ECR repository for signatures"
 
 permissions:
   id-token: write # Required for OIDC
@@ -16,8 +24,8 @@ env:
   AWS_REGION: ${{ inputs.aws-region }}
   # These should be secrets or vars in GitHub
   ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
-  ECR_NAMESPACE: ${{ vars.ECR_IMAGE_REPO }}
-  SIG_REPO: ${{ vars.ECR_SIG_REPO }}
+  ECR_NAMESPACE: ${{ inputs.ecr-namespace }}
+  SIG_REPO: ${{ inputs.sig-repo }}
   KMS_KEY_ARN: ${{ secrets.KMS_KEY_ARN }}
 
 jobs:
